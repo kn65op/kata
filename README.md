@@ -1,0 +1,3 @@
+# kata
+
+Placeholder for training
