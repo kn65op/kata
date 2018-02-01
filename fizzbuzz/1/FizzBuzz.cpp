@@ -10,8 +10,7 @@ class Printer
   public:
     void print(std::vector<std::string> input, std::ostream& out)
     {
-        if (!input.empty())
-            out << input.front() << "\n";
+        std::for_each(input.begin(), input.end(), [&](const auto& in) { out << in << "\n"; });
     }
 };
 
@@ -29,12 +28,20 @@ TEST_F(PrinterTest, ShouldReturnEmptyTextForEmptyInput)
     ASSERT_THAT(output.str(), Eq(""));
 }
 
-TEST_F(PrinterTest, ShouldPrintNumberFollowedByNewline)
+TEST_F(PrinterTest, ShouldPrintTextFollowedByNewline)
 {
     std::vector<std::string> intput{"1"};
     printer.print(intput, output);
 
     ASSERT_THAT(output.str(), Eq("1\n"));
+}
+
+TEST_F(PrinterTest, ShouldPrintMoreTextFollowedByNewline)
+{
+    std::vector<std::string> intput{"2", "a"};
+    printer.print(intput, output);
+
+    ASSERT_THAT(output.str(), Eq("2\na\n"));
 }
 
 int main(int argc, char** argv)
