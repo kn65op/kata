@@ -44,6 +44,20 @@ TEST_F(PrinterTest, ShouldPrintMoreTextFollowedByNewline)
     ASSERT_THAT(output.str(), Eq("2\na\n"));
 }
 
+class FizzBuzzCreator
+{
+public:
+    std::vector<std::string> create()
+    {
+        return {};
+    }
+};
+
+TEST(FizzBuzzCreatorTest, ShouldReturn100FizzBuzz)
+{
+    ASSERT_THAT(FizzBuzzCreator{}.create(), ElementsAre());
+}
+
 int main(int argc, char** argv)
 {
     InitGoogleTest(&argc, argv);
