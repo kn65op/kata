@@ -44,18 +44,46 @@ TEST_F(PrinterTest, ShouldPrintMoreTextFollowedByNewline)
     ASSERT_THAT(output.str(), Eq("2\na\n"));
 }
 
+class FizzBuzzCondition
+{
+  public:
+    virtual bool isFizz(int) const = 0;
+    virtual bool isBuzz(int) const = 0;
+};
+
+class MockFizzBuzzCondition : public FizzBuzzCondition
+{
+  public:
+    MOCK_CONST_METHOD1(isFizz, bool(int));
+    MOCK_CONST_METHOD1(isBuzz, bool(int));
+};
+
 class FizzBuzzCreator
 {
-public:
-    std::vector<std::string> create()
+  public:
+    FizzBuzzCreator(const FizzBuzzCondition& c) : condition{c}
     {
-        return {};
     }
+
+    std::vector<std::string> create(int i = 100)
+    {
+        condition.isFizz(1);
+        condition.isBuzz(1);
+        return {"1"};
+    }
+
+  private:
+    const FizzBuzzCondition& condition;
 };
 
 TEST(FizzBuzzCreatorTest, ShouldReturn100FizzBuzz)
 {
-    ASSERT_THAT(FizzBuzzCreator{}.create(), ElementsAre());
+    MockFizzBuzzCondition condition;
+
+    EXPECT_CALL(condition, isFizz(1)).WillRepeatedly(Return(false));
+    EXPECT_CALL(condition, isBuzz(1)).WillRepeatedly(Return(false));
+
+    ASSERT_THAT(FizzBuzzCreator{condition}.create(1), ElementsAre("1"));
 }
 
 int main(int argc, char** argv)
