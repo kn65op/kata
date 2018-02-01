@@ -1,10 +1,24 @@
 #include "gtest/gtest.h"
+#include "gmock/gmock.h"
+
+#include <sstream>
 
 using namespace testing;
 
-TEST(Dummy, D)
+class Printer
 {
-    ASSERT_TRUE(true);
+public:
+    void print(std::vector<int>, std::ostream&)
+    {}
+};
+
+TEST(PrinterTest, ShouldReturnEmptyTextForEmptyInput)
+{
+    std::stringstream output;
+    std::vector<int> intput;
+    Printer{}.print(intput, output);
+
+    ASSERT_THAT(output.str(), Eq(""));
 }
 
 int main(int argc, char **argv) {
