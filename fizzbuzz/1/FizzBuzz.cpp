@@ -71,7 +71,10 @@ class FizzBuzzCreator
         {
             return {fizz()};
         }
-        condition.isBuzz(1);
+        if (shouldBuzz(1))
+        {
+            return{buzz()};
+        }
         return {"1"};
     }
 
@@ -86,6 +89,16 @@ class FizzBuzzCreator
     constexpr const char* fizz()
     {
         return "Fizz";
+    }
+
+    bool shouldBuzz(int i)
+    {
+        return condition.isBuzz(i);
+    }
+
+    constexpr const char* buzz()
+    {
+        return "Buzz";
     }
 };
 
@@ -107,9 +120,16 @@ TEST_F(FizzBuzzCreatorTest, ShouldReturnNumberIfNotFizzAndNotBuzz)
 
 TEST_F(FizzBuzzCreatorTest, ShouldReturnFizzIfFizzAndNotBuzz)
 {
-    EXPECT_CALL(condition, isFizz(1)).WillRepeatedly(Return(true));
+    EXPECT_CALL(condition, isFizz(1)).WillOnce(Return(true));
 
     ASSERT_THAT(creator.create(1), ElementsAre("Fizz"));
+}
+
+TEST_F(FizzBuzzCreatorTest, ShuoldReturnBuzzIfBuzzAndNotFizz)
+{
+    EXPECT_CALL(condition, isBuzz(1)).WillOnce(Return(true));
+
+    ASSERT_THAT(creator.create(1), ElementsAre("Buzz"));
 }
 
 int main(int argc, char** argv)
