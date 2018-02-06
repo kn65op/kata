@@ -65,18 +65,28 @@ class FizzBuzzCreator
     {
     }
 
-    std::vector<std::string> create(int i = 100)
+    std::vector<std::string> create(int numbers = 100)
     {
-        const std::string out = constructFizzBuzzOutput(i);
-        if (out.empty())
+        std::vector<std::string> output;
+        for (int i = 1; i <= numbers; ++i)
         {
-            return {"1"};
+            output.push_back(getOutputFor(i));
         }
-        return {out};
+        return {output};
     }
 
   private:
     const FizzBuzzCondition& condition;
+
+    std::string getOutputFor(int i)
+    {
+        const std::string out = constructFizzBuzzOutput(i);
+        if (out.empty())
+        {
+            return std::to_string(i);
+        }
+        return out;
+    }
 
     std::string constructFizzBuzzOutput(int i)
     {
@@ -149,6 +159,11 @@ TEST_F(FizzBuzzCreatorTest, ShouldReturnFizzBuzzIfFizzAndBuzz)
     EXPECT_CALL(condition, isBuzz(1)).WillOnce(Return(true));
 
     ASSERT_THAT(creator.create(1), ElementsAre("FizzBuzz"));
+}
+
+TEST_F(FizzBuzzCreatorTest, ShouldReturnMoreElements)
+{
+    ASSERT_THAT(creator.create(3), ElementsAre("1", "2", "3"));
 }
 
 int main(int argc, char** argv)
