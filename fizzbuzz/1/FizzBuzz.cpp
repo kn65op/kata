@@ -177,7 +177,7 @@ class FizzDivideThreeBuzzDivideByFiveCondition : public FizzBuzzCondition
 
     bool isBuzz(int i) const override
     {
-        return i > 1;
+        return i == 5;
     }
 };
 
@@ -209,6 +209,11 @@ TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsBuzzShouldReturnFalseFor1)
 TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsBuzzShouldReturnTrueFor5)
 {
     ASSERT_TRUE(FizzDivideThreeBuzzDivideByFiveCondition{}.isBuzz(5));
+}
+
+TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsBuzzShouldReturnFalseFor6)
+{
+    ASSERT_FALSE(FizzDivideThreeBuzzDivideByFiveCondition{}.isBuzz(6));
 }
 
 int main(int argc, char** argv)
