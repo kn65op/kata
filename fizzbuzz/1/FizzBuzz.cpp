@@ -7,7 +7,7 @@ using namespace testing;
 
 class Printer
 {
-  public:
+public:
     void print(std::vector<std::string> input, std::ostream& out)
     {
         std::for_each(input.begin(), input.end(), [&](const auto& in) { out << in << "\n"; });
@@ -46,7 +46,7 @@ TEST_F(PrinterTest, ShouldPrintMoreTextFollowedByNewline)
 
 class FizzBuzzCondition
 {
-  public:
+public:
     virtual ~FizzBuzzCondition() = default;
     virtual bool isFizz(int) const = 0;
     virtual bool isBuzz(int) const = 0;
@@ -54,14 +54,14 @@ class FizzBuzzCondition
 
 class MockFizzBuzzCondition : public FizzBuzzCondition
 {
-  public:
+public:
     MOCK_CONST_METHOD1(isFizz, bool(int));
     MOCK_CONST_METHOD1(isBuzz, bool(int));
 };
 
 class FizzBuzzCreator
 {
-  public:
+public:
     FizzBuzzCreator(const FizzBuzzCondition& c) : condition{c}
     {
     }
@@ -76,7 +76,7 @@ class FizzBuzzCreator
         return {output};
     }
 
-  private:
+private:
     const FizzBuzzCondition& condition;
 
     std::string getOutputFor(int i)
@@ -169,7 +169,7 @@ TEST_F(FizzBuzzCreatorTest, ShouldReturnMoreElements)
 
 class FizzDivideThreeBuzzDivideByFiveCondition : public FizzBuzzCondition
 {
-  public:
+public:
     bool isFizz(int i) const override
     {
         constexpr auto fizzDivisor = 3;
@@ -182,7 +182,7 @@ class FizzDivideThreeBuzzDivideByFiveCondition : public FizzBuzzCondition
         return isDivisibleBy(i, buzzDivisor);
     }
 
-  private:
+private:
     bool isDivisibleBy(int i, int div) const
     {
         return !(i % div);
