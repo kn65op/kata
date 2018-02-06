@@ -172,12 +172,20 @@ class FizzDivideThreeBuzzDivideByFiveCondition : public FizzBuzzCondition
   public:
     bool isFizz(int i) const override
     {
-        return !(i % 3);
+        constexpr auto fizzDivisor = 3;
+        return isDivisibleBy(i, fizzDivisor);
     }
 
     bool isBuzz(int i) const override
     {
-        return !(i % 5);
+        constexpr auto buzzDivisor = 5;
+        return isDivisibleBy(i, buzzDivisor);
+    }
+
+  private:
+    bool isDivisibleBy(int i, int div) const
+    {
+        return !(i % div);
     }
 };
 
