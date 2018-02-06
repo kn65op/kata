@@ -47,6 +47,7 @@ TEST_F(PrinterTest, ShouldPrintMoreTextFollowedByNewline)
 class FizzBuzzCondition
 {
   public:
+    virtual ~FizzBuzzCondition() = default;
     virtual bool isFizz(int) const = 0;
     virtual bool isBuzz(int) const = 0;
 };
@@ -164,6 +165,31 @@ TEST_F(FizzBuzzCreatorTest, ShouldReturnFizzBuzzIfFizzAndBuzz)
 TEST_F(FizzBuzzCreatorTest, ShouldReturnMoreElements)
 {
     ASSERT_THAT(creator.create(3), ElementsAre("1", "2", "3"));
+}
+
+class FizzDivideThreeBuzzDivideByFiveCondition : public FizzBuzzCondition
+{
+public:
+    bool isFizz(int) const override
+    {
+        return false;
+    }
+
+    bool isBuzz(int) const override
+    {
+        return false;
+    }
+
+};
+
+TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsFizzShouldReturnFalseFor1)
+{
+    ASSERT_FALSE(FizzDivideThreeBuzzDivideByFiveCondition{}.isFizz(1));
+}
+
+TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsBuzzShouldReturnFalseFor1)
+{
+    ASSERT_FALSE(FizzDivideThreeBuzzDivideByFiveCondition{}.isBuzz(1));
 }
 
 int main(int argc, char** argv)
