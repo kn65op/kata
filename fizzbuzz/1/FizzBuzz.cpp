@@ -89,24 +89,27 @@ class FizzBuzzCreator
     }
 };
 
-TEST(FizzBuzzCreatorTest, ShouldReturnNumberIfNotFizzAndNotBuzz)
+struct FizzBuzzCreatorTest : public Test
 {
+    FizzBuzzCreatorTest()
+    {
+        EXPECT_CALL(condition, isFizz(_)).WillRepeatedly(Return(false));
+        EXPECT_CALL(condition, isBuzz(_)).WillRepeatedly(Return(false));
+    }
     MockFizzBuzzCondition condition;
+    FizzBuzzCreator creator{condition};
+};
 
-    EXPECT_CALL(condition, isFizz(1)).WillRepeatedly(Return(false));
-    EXPECT_CALL(condition, isBuzz(1)).WillRepeatedly(Return(false));
-
-    ASSERT_THAT(FizzBuzzCreator{condition}.create(1), ElementsAre("1"));
+TEST_F(FizzBuzzCreatorTest, ShouldReturnNumberIfNotFizzAndNotBuzz)
+{
+    ASSERT_THAT(creator.create(1), ElementsAre("1"));
 }
 
-TEST(FizzBuzzCreatorTest, ShouldReturnFizzIfFizzAndNotBuzz)
+TEST_F(FizzBuzzCreatorTest, ShouldReturnFizzIfFizzAndNotBuzz)
 {
-    MockFizzBuzzCondition condition;
-
     EXPECT_CALL(condition, isFizz(1)).WillRepeatedly(Return(true));
-    EXPECT_CALL(condition, isBuzz(1)).WillRepeatedly(Return(false));
 
-    ASSERT_THAT(FizzBuzzCreator{condition}.create(1), ElementsAre("Fizz"));
+    ASSERT_THAT(creator.create(1), ElementsAre("Fizz"));
 }
 
 int main(int argc, char** argv)
