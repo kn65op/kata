@@ -172,7 +172,7 @@ class FizzDivideThreeBuzzDivideByFiveCondition : public FizzBuzzCondition
 public:
     bool isFizz(int i) const override
     {
-        return i > 1;
+        return i == 3;
     }
 
     bool isBuzz(int) const override
@@ -187,9 +187,14 @@ TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsFizzShouldReturnFalseFor1)
     ASSERT_FALSE(FizzDivideThreeBuzzDivideByFiveCondition{}.isFizz(1));
 }
 
-TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsFizzShouldReturnFalseFor3)
+TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsFizzShouldReturnTrueFor3)
 {
     ASSERT_TRUE(FizzDivideThreeBuzzDivideByFiveCondition{}.isFizz(3));
+}
+
+TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsFizzShouldReturnFalseFor2)
+{
+    ASSERT_FALSE(FizzDivideThreeBuzzDivideByFiveCondition{}.isFizz(2));
 }
 
 TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsBuzzShouldReturnFalseFor1)
