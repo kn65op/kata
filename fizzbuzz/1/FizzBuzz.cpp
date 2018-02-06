@@ -92,11 +92,11 @@ private:
     std::string constructFizzBuzzOutput(int i)
     {
         std::string out;
-        if (shouldFizz(1))
+        if (shouldFizz(i))
         {
             out += fizz();
         }
-        if (shouldBuzz(1))
+        if (shouldBuzz(i))
         {
             out += buzz();
         }
@@ -167,6 +167,17 @@ TEST_F(FizzBuzzCreatorTest, ShouldReturnMoreElements)
     ASSERT_THAT(creator.create(3), ElementsAre("1", "2", "3"));
 }
 
+TEST_F(FizzBuzzCreatorTest, ShouldCallProperMethods)
+{
+    EXPECT_CALL(condition, isFizz(1)).WillOnce(Return(false));
+    EXPECT_CALL(condition, isBuzz(1)).WillOnce(Return(false));
+    EXPECT_CALL(condition, isFizz(2)).WillOnce(Return(false));
+    EXPECT_CALL(condition, isBuzz(2)).WillOnce(Return(false));
+    EXPECT_CALL(condition, isFizz(3)).WillOnce(Return(false));
+    EXPECT_CALL(condition, isBuzz(4)).WillOnce(Return(false));
+    ASSERT_THAT(creator.create(3), ElementsAre("1", "2", "3"));
+}
+
 class FizzDivideThreeBuzzDivideByFiveCondition : public FizzBuzzCondition
 {
 public:
@@ -232,5 +243,8 @@ TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsBuzzShouldReturnTrueFor10)
 int main(int argc, char** argv)
 {
     InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    const auto returnValue = RUN_ALL_TESTS();
+
+    Printer{}.print(FizzBuzzCreator{FizzDivideThreeBuzzDivideByFiveCondition{}}.create(100), std::cout);
+    return returnValue;
 }
