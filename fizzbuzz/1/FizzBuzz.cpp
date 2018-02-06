@@ -67,19 +67,20 @@ class FizzBuzzCreator
 
     std::vector<std::string> create(int i = 100)
     {
-        if (shouldFizz(1) && shouldBuzz(1))
-        {
-            return {std::string{fizz()} + buzz()};
-        }
+        std::string out;
         if (shouldFizz(1))
         {
-            return {fizz()};
+            out += fizz();
         }
         if (shouldBuzz(1))
         {
-            return {buzz()};
+            out += buzz();
         }
-        return {"1"};
+        if (out.empty())
+        {
+            return {"1"};
+        }
+        return {out};
     }
 
   private:
@@ -138,8 +139,8 @@ TEST_F(FizzBuzzCreatorTest, ShuoldReturnBuzzIfBuzzAndNotFizz)
 
 TEST_F(FizzBuzzCreatorTest, ShouldReturnFizzBuzzIfFizzAndBuzz)
 {
-    EXPECT_CALL(condition, isFizz(1)).WillRepeatedly(Return(true));
-    EXPECT_CALL(condition, isBuzz(1)).WillRepeatedly(Return(true));
+    EXPECT_CALL(condition, isFizz(1)).WillOnce(Return(true));
+    EXPECT_CALL(condition, isBuzz(1)).WillOnce(Return(true));
 
     ASSERT_THAT(creator.create(1), ElementsAre("FizzBuzz"));
 }
