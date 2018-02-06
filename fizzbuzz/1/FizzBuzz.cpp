@@ -67,13 +67,17 @@ class FizzBuzzCreator
 
     std::vector<std::string> create(int i = 100)
     {
+        if (shouldFizz(1) && shouldBuzz(1))
+        {
+            return {std::string{fizz()} + buzz()};
+        }
         if (shouldFizz(1))
         {
             return {fizz()};
         }
         if (shouldBuzz(1))
         {
-            return{buzz()};
+            return {buzz()};
         }
         return {"1"};
     }
@@ -120,16 +124,24 @@ TEST_F(FizzBuzzCreatorTest, ShouldReturnNumberIfNotFizzAndNotBuzz)
 
 TEST_F(FizzBuzzCreatorTest, ShouldReturnFizzIfFizzAndNotBuzz)
 {
-    EXPECT_CALL(condition, isFizz(1)).WillOnce(Return(true));
+    EXPECT_CALL(condition, isFizz(1)).WillRepeatedly(Return(true));
 
     ASSERT_THAT(creator.create(1), ElementsAre("Fizz"));
 }
 
 TEST_F(FizzBuzzCreatorTest, ShuoldReturnBuzzIfBuzzAndNotFizz)
 {
-    EXPECT_CALL(condition, isBuzz(1)).WillOnce(Return(true));
+    EXPECT_CALL(condition, isBuzz(1)).WillRepeatedly(Return(true));
 
     ASSERT_THAT(creator.create(1), ElementsAre("Buzz"));
+}
+
+TEST_F(FizzBuzzCreatorTest, ShouldReturnFizzBuzzIfFizzAndBuzz)
+{
+    EXPECT_CALL(condition, isFizz(1)).WillRepeatedly(Return(true));
+    EXPECT_CALL(condition, isBuzz(1)).WillRepeatedly(Return(true));
+
+    ASSERT_THAT(creator.create(1), ElementsAre("FizzBuzz"));
 }
 
 int main(int argc, char** argv)
