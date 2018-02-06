@@ -169,17 +169,16 @@ TEST_F(FizzBuzzCreatorTest, ShouldReturnMoreElements)
 
 class FizzDivideThreeBuzzDivideByFiveCondition : public FizzBuzzCondition
 {
-public:
+  public:
     bool isFizz(int i) const override
     {
         return !(i % 3);
     }
 
-    bool isBuzz(int) const override
+    bool isBuzz(int i) const override
     {
-        return false;
+        return i > 1;
     }
-
 };
 
 TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsFizzShouldReturnFalseFor1)
@@ -205,6 +204,11 @@ TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsFizzShouldReturnTrueFor6)
 TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsBuzzShouldReturnFalseFor1)
 {
     ASSERT_FALSE(FizzDivideThreeBuzzDivideByFiveCondition{}.isBuzz(1));
+}
+
+TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsBuzzShouldReturnTrueFor5)
+{
+    ASSERT_TRUE(FizzDivideThreeBuzzDivideByFiveCondition{}.isBuzz(5));
 }
 
 int main(int argc, char** argv)
