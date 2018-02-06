@@ -192,9 +192,9 @@ TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsFizzShouldReturnTrueFor3)
     ASSERT_TRUE(FizzDivideThreeBuzzDivideByFiveCondition{}.isFizz(3));
 }
 
-TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsFizzShouldReturnFalseFor2)
+TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsFizzShouldReturnFalseFor4)
 {
-    ASSERT_FALSE(FizzDivideThreeBuzzDivideByFiveCondition{}.isFizz(2));
+    ASSERT_FALSE(FizzDivideThreeBuzzDivideByFiveCondition{}.isFizz(4));
 }
 
 TEST(FizzDivideThreeBuzzDivideByFiveConditionTest, IsBuzzShouldReturnFalseFor1)
