@@ -67,15 +67,7 @@ class FizzBuzzCreator
 
     std::vector<std::string> create(int i = 100)
     {
-        std::string out;
-        if (shouldFizz(1))
-        {
-            out += fizz();
-        }
-        if (shouldBuzz(1))
-        {
-            out += buzz();
-        }
+        const std::string out = constructFizzBuzzOutput(i);
         if (out.empty())
         {
             return {"1"};
@@ -85,6 +77,20 @@ class FizzBuzzCreator
 
   private:
     const FizzBuzzCondition& condition;
+
+    std::string constructFizzBuzzOutput(int i)
+    {
+        std::string out;
+        if (shouldFizz(1))
+        {
+            out += fizz();
+        }
+        if (shouldBuzz(1))
+        {
+            out += buzz();
+        }
+        return out;
+    }
 
     bool shouldFizz(int i)
     {
