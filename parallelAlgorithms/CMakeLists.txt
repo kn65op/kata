@@ -1,0 +1,3 @@
+add_executable(ParallelAlogrithms ParallelAlgorithms.cpp)
+
+target_link_libraries(ParallelAlogrithms benchmark tbb)
