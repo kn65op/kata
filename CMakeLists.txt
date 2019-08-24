@@ -8,4 +8,5 @@ add_compile_options(-Wall -Wextra)
 add_subdirectory(externals)
 add_subdirectory(fizzbuzz)
 add_subdirectory(parallelAlgorithms)
+add_subdirectory(functional_exercises)
 

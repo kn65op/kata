@@ -1,0 +1,3 @@
+add_executable(AlgorithmsByAccumulate AlgorithmsByAccumulate.cpp)
+
+target_link_libraries(AlgorithmsByAccumulate benchmark tbb)
